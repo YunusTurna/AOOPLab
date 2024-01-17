@@ -1,18 +1,43 @@
 package classes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RecipeCreator {
+import mainFiles.Main;
+
+public class RecipeCreator extends Main {
 
     public String[] userIngredients;
 
     public RecipeCreator(){
+        System.out.println("Welcome to own ingredients recipe generator. Now you can give us your own ingredients that already you have and we can show you recipes that you can make. ");
+        getUserIngredients();
+        IngredientsSearch();
+        
+        
+        
+    }
+        
+   public void Loop(){
 
         getUserIngredients();
-        IngreditentsShow();
-        
+        IngredientsSearch();
+        System.out.println("If you want to look another recipe press 1 and enter but if you want to return main menu press 2 and enter: ");
+        try (Scanner sc = new Scanner(System.in)) {
+            int newNewChoice = sc.nextInt();
+            if(newNewChoice==1){
+
+            
+            }
+            else if (newNewChoice == 2){
+                mainMenuDisplay();
+            }
+        }
+    
     
     }
+    
 
     public void getUserIngredients() {
         System.out.print("Please give us your ingredients (please split them with comma (','): ");
@@ -25,13 +50,14 @@ public class RecipeCreator {
     }
 
 
-    public void IngreditentsShow(){
-        System.out.print("Your ingredients are ");
+    public String IngreditentsShow(){
+        
+        String token = "Ingredients: ";
             for(int i=0;i<userIngredients.length;i++){
-                System.out.print(userIngredients[i]);
+                token += userIngredients[i];
                 if(i<userIngredients.length-1){
 
-                    System.out.print(", ");
+                    token += ", ";
 
 
 
@@ -40,7 +66,42 @@ public class RecipeCreator {
             
                 
             }
-        System.out.println("");
+        return token;
+
+    }
+
+    public void IngredientsSearch(){
+    
+        
+        
+        
+        try {
+            File file = new File("lunchPrep/src/datas/foodlist.txt");
+            try (Scanner fileScanner = new Scanner(file)) {
+                boolean foodFound = false;
+                while (fileScanner.hasNextLine()) {
+                    String line = fileScanner.nextLine();
+                    if (line.contains(IngreditentsShow())) {
+                        foodFound = true;
+                        for (int i = 0; i < 5; i++) {
+                            if (fileScanner.hasNextLine()) {
+                                System.out.println(fileScanner.nextLine());
+                            }
+                        }
+                        
+                        break;
+                    }
+                }
+                if (!foodFound) {
+                    System.out.println("There isn't any food that you can make.");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
+
+
     }
 
 }

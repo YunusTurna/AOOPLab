@@ -1,0 +1,24 @@
+Tomato Soup
+Ingredients: onion, carrot,celery, tomato, cream
+calorie:32
+Nutritional Values:Protein:0.91 , Fat:1,1 , Carbs:4,5
+Degree of difficulty:3.0
+
+-----------------------------------------------------
+
+Potato Soup
+Ingredients: spring onion, potato, cream
+calorie:31
+Nutritional Values:Protein:2,15, Fat:2,11 , Carbs:13,70
+Degree of difficulty:1.0
+
+-----------------------------------------------------
+
+Chicken Soup
+Ingredients: garlic, onion, carrot, celery, ginger, chicken, couscous
+calorie:55
+Nutritional Values:Protein:4,2 , Fat:1,96 , Carbs:3,42
+Degree of difficulty:7.5
+
+---------------------------------------------------------------
+
