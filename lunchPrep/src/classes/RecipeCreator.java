@@ -4,32 +4,44 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RecipeCreator {
+import mainFiles.Main;
 
-    private String[] userIngredients;
+public class RecipeCreator extends Main {
 
-    public RecipeCreator() {
-        System.out.println("Welcome to your own ingredients recipe generator. Enter your ingredients, separated by commas:");
+    public String[] userIngredients;
+
+    public RecipeCreator(){
+        System.out.println("Welcome to own ingredients recipe generator. Now you can give us your own ingredients that already you have and we can show you recipes that you can make. ");
         getUserIngredients();
         IngredientsSearch();
-        loop();
+        
+        
+        
     }
+        
+   public void Loop(){
 
-    private void loop() {
-        System.out.println("Press 1 to search for another recipe, or 2 to return to the main menu: ");
+        getUserIngredients();
+        IngredientsSearch();
+        System.out.println("If you want to look another recipe press 1 and enter but if you want to return main menu press 2 and enter: ");
         try (Scanner sc = new Scanner(System.in)) {
-            int choice = sc.nextInt();
-            if (choice == 1) {
-                loop();
-            } else if (choice == 2) {
-                Main.menuSurf();
+            int newNewChoice = sc.nextInt();
+            if(newNewChoice==1){
+
+            
+            }
+            else if (newNewChoice == 2){
+                mainMenuDisplay();
             }
         }
+    
+    
     }
+    
 
-    private void getUserIngredients() {
+    public void getUserIngredients() {
+        System.out.print("Please give us your ingredients (please split them with comma (','): ");
         try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Please give us your ingredients (split them with commas): ");
             userIngredients = sc.nextLine().split(",");
             for (int i = 0; i < userIngredients.length; i++) {
                 userIngredients[i] = userIngredients[i].trim();
@@ -37,31 +49,46 @@ public class RecipeCreator {
         }
     }
 
-    private String ingredientsShow() {
-        StringBuilder token = new StringBuilder("Ingredients: ");
-        for (int i = 0; i < userIngredients.length; i++) {
-            token.append(userIngredients[i]);
-            if (i < userIngredients.length - 1) {
-                token.append(", ");
+
+    public String IngreditentsShow(){
+        
+        String token = "Ingredients: ";
+            for(int i=0;i<userIngredients.length;i++){
+                token += userIngredients[i];
+                if(i<userIngredients.length-1){
+
+                    token += ", ";
+
+
+
+
+                }
+            
+                
             }
-        }
-        return token.toString();
+        return token;
+
     }
 
-    private void IngredientsSearch() {
+    public void IngredientsSearch(){
+    
+        
+        
+        
         try {
             File file = new File("lunchPrep/src/datas/foodlist.txt");
             try (Scanner fileScanner = new Scanner(file)) {
                 boolean foodFound = false;
                 while (fileScanner.hasNextLine()) {
                     String line = fileScanner.nextLine();
-                    if (line.contains(ingredientsShow())) {
+                    if (line.contains(IngreditentsShow())) {
                         foodFound = true;
                         for (int i = 0; i < 5; i++) {
                             if (fileScanner.hasNextLine()) {
                                 System.out.println(fileScanner.nextLine());
                             }
                         }
+                        
                         break;
                     }
                 }
@@ -73,6 +100,11 @@ public class RecipeCreator {
             System.out.println("File not found.");
             e.printStackTrace();
         }
+
+
     }
+
 }
+
+
 
