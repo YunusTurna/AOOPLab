@@ -1,57 +1,87 @@
 package mainFiles;
 
 
-import classes.*;
+import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
+
+import classes.*;
+
 
 
 
 public class Main{
-    public static void main(String[] args){
-        starter();
-    
+    public static void main(String[] args) throws FileNotFoundException{
+        RecipeCreator rc = new RecipeCreator();
+        ValuesOfFoods vof = new ValuesOfFoods();
         
-    }
 
+        String disp = "--------";
 
-    public static void starter(){
-        System.out.print("\033[H\033[2J");
-        mainMenuDisplay();
-        menuSurf();
-    }
+        int choice;
+        Scanner scanner = new Scanner(System.in);
 
+        do {
+            System.out.print("\033[H\033[2J");
+            disp("Main Menu");
+            System.out.println("1. Own Ingredients to Recipe");
+            System.out.println("2. Nutritional Values of Dishes");
+            System.out.println("3. Random Menu");
+            System.out.println("4. Exit");
 
-    public static void mainMenuDisplay(){
-
-        System.out.println("------------Main Menu------------");
-        System.out.println("1. Own Ingredients to Recipe");
-        System.out.println("2. Nutrutional Values of Foods");
-        System.out.println("3. Random Menu");
-        System.out.println("4. Menu for Every Budget");
-        System.out.println("5. Exit the Programme");
-        System.out.print("\nEnter your choice: ");
-     
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            
+            
             
 
-    }
-
-    public static void menuSurf(){
-        
-        try (Scanner sc = new Scanner(System.in)) {
-            int choice=sc.nextInt();
             switch (choice) {
                 case 1:
-                RecipeCreator rc = new RecipeCreator();
-                menuSurf();
-               
+                    System.out.print("\033[H\033[2J");
+                    disp("Own Ingredients to Recipe");
+                    rc.getUserIngredients();
+                    rc.IngredientsSearch();
+                    
+                    rc.ask();
+                    
+                    break;
+                case 2:
+                    System.out.print("\033[H\033[2J");
+                    disp("Nutritional Values of Dishes");
+                    vof.searchFood();
+                    
+                    vof.ask();
+                    
+                    break;
+                case 3:
+                    System.out.print("\033[H\033[2J");
+                    RandomMenu rm = new RandomMenu("lunchPrep/src/datas/foodlist.txt", "lunchPrep/src/datas/souplist.txt");
+                    rm.getMenu();
+                    rm.ask();
+                    break;
+
+                case 4:
+                    System.out.println("Exiting the application.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
             
-   }
-        }
+        } while (choice != 4);
+    }
+    public static void disp (String menu){
+        String disp = "--------";
+        System.out.println(disp+menu+disp);
+        
+    }
+}
+
+    
+  
 
             
-}
-}
-            
+
+    
         
 
 
