@@ -4,18 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class ValuesOfFoods extends RecipeCreator{
-    
-    
+public class ValuesOfFoods extends RecipeCreator {
+    // The file path for the food list data
     private static final String FILE_PATH = "lunchPrep/src/datas/foodlist.txt"; 
 
+    // Default constructor
+    public ValuesOfFoods() {}
 
-    public ValuesOfFoods(){
-    
-        
-        
-    }
-
+    // Method to search for nutritional values of a given dish
     public void searchFood() {
         System.out.println("Please enter the name of the dish you want to check the nutritional values for: ");
 
@@ -34,43 +30,39 @@ public class ValuesOfFoods extends RecipeCreator{
                                 System.out.println(fileScanner.nextLine());
                             }
                         }
-                        
                         break;
                     }
                 }
                 if (!foodFound) {
-                    System.out.println("There isn't any food that you can make.");
+                    System.out.println("There isn't any information available for the specified dish.");
                 }
-                fileScanner.close();
             }
-            
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();
         }
     }
 
-
-    public void ask(){
+    // Method to prompt user for further actions
+    @Override
+    public void ask() {
         System.out.println("");
         Scanner sc = new Scanner(System.in);
-        System.out.printf("If you want to look another recipe press 1 and if you want to go back to main menu press 2: ");
+        System.out.printf("If you want to look for another recipe, press 1. If you want to go back to the main menu, press 2: ");
         String option = sc.nextLine();
-        
-        switch (Integer.parseInt(option)){
-            case 1:
-            System.out.print("\033[H\033[2J");
-            disp("Nutritional Values of Dishes");
-            this.searchFood();
-            this.ask();
-            break;
-            case 2:
-            break;
-            
-            default:
-            System.out.println("Invalid Option");
-            this.ask();
-            }
 
+        switch (Integer.parseInt(option)) {
+            case 1:
+                System.out.print("\033[H\033[2J");
+                disp("Nutritional Values of Dishes");
+                this.searchFood();
+                this.ask();
+                break;
+            case 2:
+                break;
+            default:
+                System.out.println("Invalid Option");
+                this.ask();
+        }
     }
 }
